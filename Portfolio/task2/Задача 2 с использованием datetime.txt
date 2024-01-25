@@ -1,0 +1,214 @@
+import random
+from datetime import datetime
+from datetime import timedelta
+
+
+def random_date(first_date, last_date):
+    """The function generates a random date"""
+    difference_date = last_date - first_date
+    random_dt = first_date + timedelta(random.randint(0, difference_date.days))
+    return str(random_dt)
+
+
+def leap_year(leap_date):
+    """function checks leap year or not"""
+    return True if leap_date % 4 == 0 else False
+
+
+def horoscope(horoscope_date):
+    """The function determines the horoscope
+     according to the Chinese calendar"""
+    if horoscope_date % 12 == 0:
+        print(f'{horoscope_date} год - год обезьяный')
+    elif horoscope_date % 12 == 1:
+        print(f'{horoscope_date} год - год петуха')
+    elif horoscope_date % 12 == 2:
+        print(f'{horoscope_date} год - год собаки')
+    elif horoscope_date % 12 == 3:
+        print(f'{horoscope_date} год - год свиньи')
+    elif horoscope_date % 12 == 4:
+        print(f'{horoscope_date} год - год крысы')
+    elif horoscope_date % 12 == 5:
+        print(f'{horoscope_date} год - год быка')
+    elif horoscope_date % 12 == 6:
+        print(f'{horoscope_date} год - год тигра')
+    elif horoscope_date % 12 == 7:
+        print(f'{horoscope_date} год - год кролика')
+    elif horoscope_date % 12 == 8:
+        print(f'{horoscope_date} год - год дракона')
+    elif horoscope_date % 12 == 9:
+        print(f'{horoscope_date} год - год змеи')
+    elif horoscope_date % 12 == 10:
+        print(f'{horoscope_date} год - год лошади')
+    elif horoscope_date % 12 == 11:
+        print(f'{horoscope_date} год - год козы')
+
+
+def get_quarter(quarter_date):
+    """The function determines the quarter of the date"""
+    if quarter_date in range(1, 4):
+        print(f'1 квартал')
+    elif quarter_date in range(4, 7):
+        print(f'2 квартал')
+    elif quarter_date in range(7, 10):
+        print(f'3 квартал')
+    elif quarter_date in range(10, 13):
+        print(f'4 квартал')
+
+
+def get_name_month(name_month):
+    """The function converts the numeric value of the month to text"""
+    if name_month == 1:
+        print(f'0{name_month} январь')
+    elif name_month == 2:
+        print(f'0{name_month} февраль')
+    elif name_month == 3:
+        print(f'0{name_month} март')
+    elif name_month == 4:
+        print(f'0{name_month} апрель')
+    elif name_month == 5:
+        print(f'0{name_month} май')
+    elif name_month == 6:
+        print(f'0{name_month} июнь')
+    elif name_month == 7:
+        print(f'0{name_month} июль')
+    elif name_month == 8:
+        print(f'0{name_month} август')
+    elif name_month == 9:
+        print(f'0{name_month} сентябрь')
+    elif name_month == 10:
+        print(f'{name_month} октябрь')
+    elif name_month == 11:
+        print(f'{name_month} ноябрь')
+    elif name_month == 12:
+        print(f'{name_month} декабрь')
+
+
+def get_day(day_date, month_date, year_date):
+    """The function indicates how many days have passed since the beginning of the year"""
+    qty_day = 0
+    if month_date == 1:
+        qty_day = day_date
+    elif month_date == 2:
+        qty_day = 31+day_date
+    elif month_date == 3:
+        qty_day = 59+day_date
+    elif month_date == 4:
+        qty_day = 90+day_date
+    elif month_date == 5:
+        qty_day = 120+day_date
+    elif month_date == 6:
+        qty_day = 151+day_date
+    elif month_date == 7:
+        qty_day = 181+day_date
+    elif month_date == 8:
+        qty_day = 212+day_date
+    elif month_date == 9:
+        qty_day = 243+day_date
+    elif month_date == 10:
+        qty_day = 273+day_date
+    elif month_date == 11:
+        qty_day = 304+day_date
+    elif month_date == 12:
+        qty_day = 334+day_date
+    if leap_year(year_date) and month_date > 2:
+        return qty_day+1
+    return qty_day
+
+
+def day_of_week(date_day, date_month, date_year):
+    """Function that determines the day of the week"""
+    week_day = 0
+    for index in range(1970, date_year):
+        if not leap_year(index):
+            week_day += 365
+        else:
+            week_day += 366
+    week_day += get_day(date_day, date_month, date_year)
+    if week_day % 7 == 0:
+        print('День недели среда')
+    elif week_day % 7 == 1:
+        print('День недели четверг')
+    elif week_day % 7 == 2:
+        print('День недели пятница')
+    elif week_day % 7 == 3:
+        print('День недели суббота')
+    elif week_day % 7 == 4:
+        print('День недели воскресенье')
+    elif week_day % 7 == 5:
+        print('День недели понедельник')
+    elif week_day % 7 == 6:
+        print('День недели вторник')
+
+
+if __name__ == '__main__':
+    required_input = True
+    day, month, year, date = 0, 0, 0, 0
+    while required_input:
+        try:
+            date = str(input('Введите дату в формате - "dd.mm.yyyy":'))
+            day = int(date[:2])
+            month = int(date[3:5])
+            year = int(date[6:10])
+            if date[2] != '.' or date[5] != '.':
+                raise ValueError
+            elif len(date) < 10:
+                raise IndexError
+            elif month not in range(1, 13):
+                raise IndexError
+            elif year not in range(1970, 2101):
+                raise IndexError
+            elif month == 1 and day not in range(1, 32):
+                raise TypeError
+            elif month == 2 and year % 4 != 0 and day not in range(1, 29):
+                raise TypeError
+            elif month == 2 and year % 4 == 0 and day not in range(1, 30):
+                raise TypeError
+            elif month == 3 and day not in range(1, 32):
+                raise TypeError
+            elif month == 4 and day not in range(1, 31):
+                raise TypeError
+            elif month == 5 and day not in range(1, 32):
+                raise TypeError
+            elif month == 6 and day not in range(1, 31):
+                raise TypeError
+            elif month == 7 and day not in range(1, 32):
+                raise TypeError
+            elif month == 8 and day not in range(1, 32):
+                raise TypeError
+            elif month == 9 and day not in range(1, 31):
+                raise TypeError
+            elif month == 10 and day not in range(1, 32):
+                raise TypeError
+            elif month == 11 and day not in range(1, 31):
+                raise TypeError
+            elif month == 12 and day not in range(1, 32):
+                raise TypeError
+        except ValueError:
+            print('значения должны быть числовыми, формат ввода - "dd.mm.yyyy"')
+        except TypeError:
+            print('В этом месяце нет столько дней')
+        except IndexError:
+            print('месяц должен быть от 1 до 12, год должен быть от 1970 до 2100')
+        else:
+            required_input = False
+    start_date = datetime.strptime('01.01.1970', '%d.%m.%Y')
+    end_date = datetime.strptime('01.01.2100', '%d.%m.%Y')
+    if len(date) > 10:
+        date = random_date(start_date, end_date)
+        print('Взята случайная дата с 1970 по 2100 год')
+        day = int(date[8:10])
+        month = int(date[5:7])
+        year = int(date[:4])
+
+    if not leap_year(year):
+        print(f'{date[:10]} - Обычный год (не високосный)')
+    else:
+        print(f'{date[:10]} - Високосный год')
+    horoscope(year)
+    get_quarter(month)
+    get_name_month(month)
+    print(f'{day} день')
+    day_year = get_day(day, month, year)
+    print(f'{day_year} столько дней прошло с начала года')
+    day_of_week(day, month, year)

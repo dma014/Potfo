@@ -1,0 +1,31 @@
+def get_factorial(number):
+    """The function of finding the factorial of a number"""
+    factorial = 1
+    for index in range(2, number + 1):
+        factorial *= index
+    return factorial
+
+
+def get_fibonaccy(number):
+    """Function for finding Fibonacci numbers"""
+    fib = [1, 1]+[0]*number
+    for index in range(2, number+2):
+        fib[index] = fib[index-2] + fib[index-1]
+    return fib[:number:-1]
+
+
+if __name__ == '__main__':
+    print('Первичные значения 1 и 1 не учитываются при расчете.')
+    while True:
+        try:
+            numbers = int(input('Введите число для нахождения факториала и чисел Фибоначчи:'))
+            if numbers < 1:
+                raise ValueError
+            break
+        except ValueError:
+            print('Число должно быть положительным')
+    for indexes in range(1, numbers + 1):
+        fibonacci = int(get_fibonaccy(indexes)[0])
+        print(f'{indexes} итерация: {fibonacci}')
+    factorials = get_factorial(numbers)
+    print(f'Выполнено {numbers} итераций. Факториал {numbers}! = {factorials}')
